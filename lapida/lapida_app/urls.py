@@ -15,9 +15,21 @@ urlpatterns = [
     path("register_dead/", views.create_dead, name="create-dead"),
     path("profile/", views.profile, name="profile"),
     path("dashboard/", views.dashboard, name="dashboard"),
+    path(
+        "flowershop_dashboard/", views.flowershop_dashboard, name="flowershop_dashboard"
+    ),
+    path("prayer_dashboard/", views.prayer_dashboard, name="prayer_dashboard"),
+    path("create_new_flower/", views.create_new_flower, name="create_new_flower"),
+    path("flowershop_items/", views.flowershop_items, name="flowershop_items"),
+    path("edit_flower/<int:id>", views.edit_flower, name="edit_flower"),
     path("menu/", views.menu, name="menu"),
     path("summary/<int:id>", views.summary, name="summary"),
     path("update_picture/<int:id>", views.update_picture, name="update-picture"),
+    path(
+        "update_prayer_link/<int:id>",
+        views.update_prayer_link,
+        name="update-prayer_link",
+    ),
     path("success/<int:id>", views.approve_payment, name="approvepayment"),
     path("update_status/<int:id>", views.update_status, name="update-status"),
     path("reserve_task/<int:id>", views.reserve_task, name="reserved-status"),

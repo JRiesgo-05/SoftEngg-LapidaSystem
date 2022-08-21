@@ -19,6 +19,9 @@ Status = (
     ("Pa", "Paid"),
     ("O", "Ongoing"),
     ("NT", "Not taken"),
+    ("NA", "Did Not Avail"),
+    ("NP", "Not Paid"),
+    ("OV", "Overdue"),
 )
 
 cemeteries = (
@@ -26,6 +29,13 @@ cemeteries = (
     ("MS", "Manila South"),
     ("L", "La Loma"),
     ("MC", "Manila Chinese"),
+)
+
+flower_shops = (
+    ("CF", "Citfora Flowers"),
+    ("GF", "Gertudes Flowershop"),
+    ("RG", "Raphael's Gifts"),
+    ("LR", "La Rose"),
 )
 
 
@@ -79,12 +89,29 @@ class User_Place(models.Model):
 class Order_User(models.Model):
     profile_dead = models.ForeignKey(User_Place, on_delete=models.CASCADE)
     status = models.CharField(max_length=2, choices=Status)
+    gravesite_status = models.CharField(max_length=2, choices=Status, default="NA")
+    floral_status = models.CharField(max_length=2, choices=Status, default="NA")
+    prayer_status = models.CharField(max_length=2, choices=Status, default="NA")
     price = models.CharField(max_length=15)
-    services = models.CharField(max_length=200)
-    note = models.CharField(max_length=180)
+    gravesite_service = models.CharField(max_length=1200, blank=True)
+    floral_service = models.CharField(max_length=1200, blank=True)
+    prayer_service = models.CharField(max_length=1200, blank=True)
+    flower_shop = models.CharField(max_length=2, choices=flower_shops, blank=True)
+    note = models.CharField(max_length=180, blank=True)
     order_date = models.DateTimeField(default=datetime.now, blank=True)
-    image = models.ImageField(
-        upload_to="image", blank=True, default="image/upload_default.png"
+    before_gravesite_image = models.ImageField(
+        upload_to="image", blank=True, default="image/default_client.png"
+    )
+    after_gravesite_image = models.ImageField(
+        upload_to="image", blank=True, default="image/default_client.png"
+    )
+    floral_image = models.ImageField(
+        upload_to="image", blank=True, default="image/default_client.png"
+    )
+    prayer_link = models.CharField(
+        max_length=1200,
+        blank=True,
+        # default="This section is gonna be updated once the link is provided.",
     )
     ctime = models.DateTimeField(auto_now_add=True)
     uptime = models.DateTimeField(auto_now=True)
@@ -94,4 +121,46 @@ class Caretaker_Task(models.Model):
     caretaker = models.ForeignKey(
         CareTaker, on_delete=models.SET_NULL, blank=True, null=True
     )
+    order = models.ForeignKey(Order_User, on_delete=models.CASCADE)
+
+
+class FlowerTaker(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = PhoneNumberField()
+    flower_shops = models.CharField(max_length=2, choices=flower_shops, unique=True)
+
+    def __str__(self):
+        return f"{self.user.username} Profile"
+
+
+class FlowerTaker_Task(models.Model):
+    flower_taker = models.ForeignKey(
+        FlowerTaker, on_delete=models.SET_NULL, blank=True, null=True
+    )
+    order = models.ForeignKey(Order_User, on_delete=models.CASCADE)
+
+
+class FlowerShopItems(models.Model):
+    flower_taker = models.ForeignKey(
+        FlowerTaker, on_delete=models.SET_NULL, blank=True, null=True
+    )
+    flower_name = models.CharField(max_length=150)
+    price = models.PositiveIntegerField()
+    description = models.CharField(max_length=150)
+    image = models.ImageField(
+        upload_to="image", blank=True, default="image/upload_default_flower.png"
+    )
+
+
+class Prayer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = PhoneNumberField()
+    cemetery = models.CharField(max_length=2, choices=cemeteries)
+
+    def __str__(self):
+        return f"{self.user.username} Profile"
+
+
+class Prayer_Task(models.Model):
+    prayer = models.ForeignKey(Prayer, on_delete=models.SET_NULL, blank=True, null=True)
     order = models.ForeignKey(Order_User, on_delete=models.CASCADE)

@@ -1,364 +1,554 @@
-{% extends "lapida_app/base.html" %}
-{% load static %}
-{% block content  %}
+{% extends "lapida_app/base.html" %} 
+{% load static %} 
 {% load auth_extras %}
+{% block content %} 
 {% load sweetify %}
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-  <link href="{% static 'lapida_app/summary/summary.css'%}" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+    integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+    crossorigin="anonymous"
+  />
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+          integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+          crossorigin="anonymous">
+  </script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <link href="{% static 'lapida_app/summary/summary.css'%}" rel="stylesheet" />
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-  {% sweetify %}
-{% if request.user|has_group:"customer" %} 
+{% sweetify %}
 <div class="container">
-    <div class="row">
-        <div class="col-md-5">
-            <div class="project-info-box">
-                <h5>REQUEST DETAILS</h5>
-                <p class="mb-0">{{form.services}}</p>
-            </div><!-- / project-info-box -->
-
-            <div class="project-info-box">
-                <p><b>Client:</b> {{form.profile_dead.user}}</p>
-                <p><b>Date:</b> {{form.ctime|date:"D d M Y"}}</p>
-                <p><b>Name of the Deceased:</b> {{form.profile_dead.uid.last_name}}, {{form.profile_dead.uid.first_name}} {{form.profile_dead.uid.middle_name}}</p>
-                <p><b>Location:</b> {{form.profile_dead.uid.place}} - {{form.profile_dead.uid.street}} {{form.profile_dead.uid.blk}} {{form.profile_dead.uid.lot}}</p>
-                <p class="mb-0"><b>Status:</b> {{form.get_status_display}}</p>
-                {%if form.note%}
-                <p class="mb-0"><b>Note:</b> {{form.note}}</p>
-                {%endif%}
-            </div><!-- / project-info-box -->
-            {%if form.status == "NT" %}
-            <div class="project-info-box mt-0 mb-0">
-                            <a href="" order_id="{{form.id}}" class="btn btn-danger btn-lg eef"> Cancel</a>
-    <!-- Set up a container element for the button -->
-    {%elif form.status == "P" %}
-                    <div class="project-info-box mt-0 mb-0">
-                            <a href="" order_id="{{form.id}}" class="btn btn-danger btn-lg ddf"> Cancel</a>
-    <div id="paypal-button-container"></div>
-                </p>
-            </div><!-- / project-info-box -->
-  {%endif%}
-
-        </div>
-
-
-
-        {%if form.image.url != "/media/image/upload_default.png"%}
-        <!-- / column -->
-        <div class="col-md-7">
-            <div class="project-info-box">
-                <p>Proof of Service Preview:</p>
-                <img src="{{form.image.url}}" id="display-img" style="width:650px;height:500px">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="project-info-box">
+        <h5>REQUEST DETAILS</h5>
+        <ul class="list-group list-group-flush">
+          {% if form.gravesite_service %}
+            {% if request.user|has_group:"customer" or request.user|has_group:"caretaker" %}
+            <div id="gravesiteheader">
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0"
+              >
+                Gravesite Care Service
+              </li>
             </div>
-            <div class="project-info-box">
-                <p><b>Latest Time Updated:</b> {{form.uptime}}</p>
-            </div><!-- / project-info-box -->
-        </div><!-- / column -->
+            {{ form.gravesite_service|safe }} 
+            {%endif%}
+          {%endif%}
+          {% if form.floral_service %}
+            {% if request.user|has_group:"customer" or request.user|has_group:"flowershop" %}
+              <div id="floralheader">
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0"
+                >
+                  Floral Arrangements
+                </li>
+              </div>
+              {{ form.floral_service|safe }}
+            {%endif%}
+          {%endif%}
+          {% if form.prayer_service %}
+              {% if request.user|has_group:"customer" or request.user|has_group:"prayer" %}
+                {{ form.prayer_service|safe }} 
+              {%endif%}
+          {%endif%}
+        </ul>
+        <p class="mb-0">{{ form.services }}</p>
+      </div>
+      <!-- / project-info-box -->
+      <div class="project-info-box">
+        <p><b>Client:</b> {{ form.profile_dead.user }}</p>
+        {% if request.user|has_group:"caretaker" or request.user|has_group:"flowershop" or request.user|has_group:"prayer" %}
+        <p><b>Contact Number:</b> {{ profile.phone }}</p>
         {%endif%}
-
-    </div>
-</div>
-{% elif request.user|has_group:"caretaker" %}
-<div class="container">
-
-    <div class="row">
-        <div class="col-md-5">
-            <div class="project-info-box">
-                <h5>REQUEST DETAILS</h5>
-                <p class="mb-0">{{form.services}}</p>
-            </div><!-- / project-info-box -->
-
-            <div class="project-info-box">
-                <p><b>Client:</b> {{form.profile_dead.user}}</p>
-                <p><b>Scheduled Date:</b> {{form.order_date|date:"D d M Y"}}</p>
-                <p><b>Name of the Deceased:</b> {{form.profile_dead.uid.last_name}}, {{form.profile_dead.uid.first_name}} {{form.profile_dead.uid.middle_name}}</p>
-                <p><b>Location:</b> {{form.profile_dead.uid.place}} - {{form.profile_dead.uid.street}} {{form.profile_dead.uid.blk}} {{form.profile_dead.uid.lot}}</p>
-                <p class="mb-0"><b>Status:</b> {{form.get_status_display}}</p>
-                {%if form.note%}
-                <p class="mb-0"><b>Note:</b> {{form.note}}</p>
+        {%if request.user|has_group:"customer" %}
+        <p><b>Date:</b> {{ form.ctime|date:"D d M Y" }}</p>
+        {%else%}
+        <p><b>Scheduled Date:</b> {{ form.order_date|date:"D d M Y" }}</p>
+        {%endif%}
+        <p>
+          <b>Name of the Deceased:</b> {{ form.profile_dead.uid.last_name }},
+          {{ form.profile_dead.uid.first_name }}
+          {{ form.profile_dead.uid.middle_name }}
+        </p>
+        <p>
+          <b>Location:</b> {{ form.profile_dead.uid.place }} -
+          {{ form.profile_dead.uid.street }} 
+          {{ form.profile_dead.uid.blk }}
+          {{ form.profile_dead.uid.lot }}
+        </p>
+        <p class="mb-0"><b>Status:</b>{{ form.get_status_display }}</p>
+        {% if form.status != 'NP' %} 
+          {% if form.gravesite_status != 'NA'%}
+          {%if request.user|has_group:'customer' or request.user|has_group:'caretaker'%}
+            <p class="mb-0">
+              <b>Gravesite Status:</b> {{ form.get_gravesite_status_display }}
+            </p>
+            {%endif%}
+          {%endif%}
+          {% if form.floral_status != 'NA'%}
+          {%if request.user|has_group:'customer' or request.user|has_group:'flowershop'%}
+            <p class="mb-0">
+              <b>Floral Status:</b> {{ form.get_floral_status_display }}
+            </p>
+            {%endif%}
+          {%endif%}
+          {% if form.prayer_status != 'NA'%}
+          {%if request.user|has_group:'customer' or request.user|has_group:'prayer'%}
+            <p class="mb-0">
+              <b>Prayer Status:</b> {{ form.get_prayer_status_display }}
+            </p>
+            {%endif%}
+          {%endif%}
+        {%endif%}
+        {% if form.note %}
+          <p class="mb-0"><b>Note:</b> {{ form.note }}</p>
+        {%endif%}
+      </div>
+      <!-- / project-info-box -->
+          {% if form.status == 'NP' and request.user|has_group:"customer" %}
+            {% if form.status == 'NP' and request.user|has_group:"customer" %}
+            <div id="paypal-button-container"></div>
+            {%endif%}
+          <div class="project-info-box mt-0 mb-0">
+            <a href="" order_id="{{form.id}}" class="btn btn-danger btn-lg eef">
+              Cancel</a>
+          {% endif %}
+          {%if request.user|has_group:"caretaker" or request.user|has_group:"flowershop" or request.user|has_group:"prayer" %}
+              <div class="col-md-13">
+                <div class="col-md-13">
+                    <div class="project-info-box">
+                    {%if request.user|has_group:"caretaker" and form.gravesite_status != "NA" and form.gravesite_status == "NT"%}
+                      <h6>This task doesn't have a dedicated caretaker. <br>Click the button bellow to claim this task!</h6>
+                      <a href="" order_id="{{form.id}}" class="btn btn-success btn-lg ccf">
+                        Claim this Task
+                      </a>
+                    {%elif request.user|has_group:"prayer" and form.prayer_status != "NA" and form.prayer_status == "NT"%}
+                      <h6>This task doesn't have a dedicated prayer. <br>Click the button bellow to claim this task!</h6>
+                      <a href="" order_id="{{form.id}}" class="btn btn-success btn-lg ccf">
+                        Claim this Task
+                      </a>
+                    {%elif request.user|has_group:"caretaker" and form.gravesite_status != "NA"%}
+                        {%if form.gravesite_status == "P" or form.gravesite_status == "O" %}
+                        <form
+                        action="{%url 'update-picture' id=form.id%}"
+                        method="POST"
+                        enctype="multipart/form-data"
+                      >
+                        {% csrf_token %}
+                        <label class="form-label" for="customFile"
+                          >Upload the proof of service here:</label
+                        >
+                        <input
+                          required
+                          type="file"
+                          name="image"
+                          class="form-control"
+                          style="margin-bottom: 7px"
+                          id="customFile"
+                          accept="image/* "
+                        />
+                        <button
+                          id="update_image"
+                          type="submit"
+                          class="btn btn-primary btn-lg"
+                          onclick="return confirm('Are you sure you want to update the image?');"
+                          style="margin-bottom: 5px"
+                          disabled
+                        >
+                          Update Image
+                        </button>
+                      </form>
+                      {%endif%}
+                    {%elif request.user|has_group:"flowershop" and form.floral_status == "P" %}
+                      <form
+                      action="{%url 'update-picture' id=form.id%}"
+                      method="POST"
+                      enctype="multipart/form-data"
+                    >
+                      {% csrf_token %}
+                      <label class="form-label" for="customFile"
+                        >Upload the proof of service here:</label
+                      >
+                      <input
+                        required
+                        type="file"
+                        name="image"
+                        class="form-control"
+                        style="margin-bottom: 7px"
+                        id="customFile"
+                        accept="image/* "
+                      />
+                      <button
+                        id="update_image"
+                        type="submit"
+                        class="btn btn-primary btn-lg"
+                        onclick="return confirm('Are you sure you want to update the image?');"
+                        style="margin-bottom: 5px"
+                        disabled
+                      >
+                        Update Image
+                      </button>
+                    </form>
+                    {%elif request.user|has_group:"prayer" and form.prayer_status == "P" %}
+                      <form
+                      action="{%url 'update-prayer_link' id=form.id%}"
+                      method="POST"
+                      enctype="multipart/form-data"
+                    >
+                      {% csrf_token %}
+                      <label class="form-label" for="prayerLink"
+                        >Upload the proof of service here:</label
+                      >
+                      <input
+                        required
+                        type="url"
+                        name="prayer_link"
+                        class="form-control"
+                        style="margin-bottom: 7px"
+                        id="prayerLink"
+                      />
+                      <button
+                        id="update_prayer"
+                        type="submit"
+                        class="btn btn-primary btn-lg"
+                        onclick="return confirm('Are you sure you want to update the Prayer URL?');"
+                        style="margin-bottom: 5px"
+                        disabled
+                      >
+                        Update Prayer Link
+                      </button>
+                    </form>
+                    {%endif%}
+                  </div>
+                </div>
+              </div>
+          {%endif%}
+        </div>
+        {% if form.status != "NP" and form.status != "Ca"%}
+        <!-- START PROOF OF SERVICE -->
+        <div class="col-md-7">
+          <div class="project-info-box">
+            <div id="proof-selector" class="btn-group btn-group-toggle" data-toggle="buttons">
+              {%if form.gravesite_status != "NA"%}
+                {%if request.user|has_group:"caretaker" or request.user|has_group:"customer"%}
+              <label class="btn btn-secondary" image_url="{{form.before_gravesite_image.url}}" prayer="Not Prayer">
+                <input type="radio" name="proof_button" id="proof1" val="{{form.before_gravesite_image.url}}">Before Gravesite 
+              </label>
+              <label class="btn btn-secondary" image_url="{{form.after_gravesite_image.url}}" prayer="Not Prayer">
+                <input type="radio" name="proof_button" id="proof2" val="{{form.after_gravesite_image.url}}">After Gravesite 
+              </label>
                 {%endif%}
-            </div><!-- / project-info-box -->
-{%if form.status != "Ca" and form.status != "C" and form.status != "NT" %}
-            <div class="col-md-13">
-                        <div class="project-info-box">
-                            <form action="{%url 'update-picture' id=form.id%}" method ="POST" enctype="multipart/form-data">
-                            {%csrf_token%}
-                            <label class="form-label" for="customFile">Upload the proof of service here:</label>
-                            <input type="file" name="image" class="form-control" style="margin-bottom:7px" id="customFile" accept="image/* "/>
-                            <button type="submit" class="btn btn-primary btn-lg" onclick="return confirm('Are you sure you want to update the picture?');"style="margin-bottom:5px">Update Image</button>
-                        </form>
-                            {%if form.status == "Pa" or form.status == "O" %}
-                            <a href="" order_id="{{form.id}}" class="btn btn-success btn-lg aaf"> Update Transaction
-                            </a>
-                            {%endif%}
-                            </div>
-                    </div>
+              {%endif%}
+              {%if form.floral_status != "NA"%}
+                {%if request.user|has_group:"flowershop" or request.user|has_group:"customer"%}
+              <label class="btn btn-secondary" image_url="{{form.floral_image.url}}" prayer="Not Prayer">
+                <input type="radio" name="proof_button" id="proof3" val="{{form.floral_image.url}}"> Flower
+              </label>
+                {%endif%}
+              {%endif%}
+                {%if form.prayer_status != "NA"%}
+              {%if request.user|has_group:"prayer" or request.user|has_group:"customer"%}
+              <label class="btn btn-secondary" image_url="{{order.prayer_image}}" prayer="Prayer">
+                <input type="radio" name="proof_button" id="proof4" val="{{form.floral_image.url}}" > Prayer
+              </label>
+                {%endif%}
+              {%endif%}
+            </div>
+            <br>
+            <p>Proof of Service:</p>
+              <div id="prayer_url" class="prayer_url">
+                <a href="{{form.prayer_link}}" class="link-dark">Live Stream Link</a>
+              </div>
+            <img
+              src="/media/image/default_proof_button.png"
+              class="rounded"
+              id="display-img"
+              style="width: 650px; height: 500px"
+            />
+          </div>
+          <div class="project-info-box">
+            <p><b>Latest Time Updated:</b> {{ form.uptime }}</p>
+          </div>
+          <!-- / project-info-box -->
         </div>
         <!-- / column -->
-        <div class="col-md-7">
-            <div class="project-info-box">
-                <p>Proof of Service Preview:</p>
-                <img src="{{form.image.url}}" class="rounded" id="display-img" style="width:650px;height:500px">
-            </div>
-            <div class="project-info-box">
-                <p><b>Latest Time Updated:</b> {{form.uptime}}</p>
-            </div><!-- / project-info-box -->
-        </div><!-- / column -->
-{%elif form.status == "NT" %}
-            <div class="col-md-13">
-                        <div class="project-info-box">
-                                    <a href="" order_id="{{form.id}}" class="btn btn-success btn-lg ccf"> Claim this Task 
-                            </a>
-                        </div>
-            </div>
-{%endif%}
-
+        {%endif%}
+        <!-- END OF PROOF OF SERVICE -->
+      </div>
     </div>
+  </div>
 </div>
+  <!-- Include the PayPal JavaScript SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AZ99n5v8uTUjhoGvST_V46LKtl5yCCtEAubC2ReOKeWVjkSkd1SYrHda3RRlUbODi4q7CBivVyBV2Rso&currency=PHP"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-{%endif%} 
- <!-- Include the PayPal JavaScript SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=AZ99n5v8uTUjhoGvST_V46LKtl5yCCtEAubC2ReOKeWVjkSkd1SYrHda3RRlUbODi4q7CBivVyBV2Rso&currency=PHP"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script>
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
 
-    <script>
-        // Render the PayPal button into #paypal-button-container
-        paypal.Buttons({
+        // Set up the transaction
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: {{form.price}}
+                    }
+                }]
+            });
+        },
 
-            // Set up the transaction
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: {{form.price}}
-                        }
-                    }]
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                // Show a success message to the buyer
+                alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                 $.get( "{% url 'approvepayment' id=form.id%}", function( data ) {
+            });
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+  </script>
+
+  <script>
+    $(document).ready(function () {
+      $("#customFile").change(function (event) {
+        var x = URL.createObjectURL(event.target.files[0]);
+        $("#display-img").attr("src", x);
+        console.log(event);
+      });
+    });
+  </script>
+
+  <script>
+    $('#prayer_url').hide();
+    const select = document.getElementById('proof-selector');
+    $("#customFile").change(function () {
+      if ($("#customFile").val() == "") {
+        
+        $("#update_image").attr("disabled", true);
+      } else {
+        $("#update_image").attr("disabled", false);
+      }
+    });
+    $("#prayerLink").change(function () {
+      if ($("#prayerLink").val() == "") {
+        
+        $("#update_prayer").attr("disabled", true);
+      } else {
+        $("#update_prayer").attr("disabled", false);
+      }
+    });
+    select.addEventListener('click', ({ target }) => {
+      var role = "{{request.user|has_group:'customer'}}"
+      var image_url = target.getAttribute("image_url")
+      var prayer = target.getAttribute("prayer")
+      if(prayer == "Prayer" && image_url == ""){
+        image_url = role == "True" ? "/media/image/default_client.png": "/media/image/default_employee.png"
+      }
+      if (prayer == "Prayer" && "{{form.prayer_link}}" != ""){
+        $('#display-img').hide()
+        $('#prayer_url').fadeIn();
+      }
+      else{
+        $('#prayer_url').hide()
+        $('#display-img').attr('src',image_url);
+        $('#display-img').fadeIn();
+      }
+    });
+  </script>
+
+  <script>
+    $(function () {
+      $(".aaf").click(function (e) {
+        e.preventDefault();
+        var tthis = $(this);
+        var usersid = $(this).attr("order_id");
+        var url = "{% url 'update-status' id=1 %}".replace("1", usersid);
+        var url_href = "{% url 'summary' id=1 %}".replace("1", usersid);
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger",
+          },
+          buttonsStyling: false,
+        });
+        swalWithBootstrapButtons
+          .fire({
+            title: "Are you sure?",
+            text: "You're updating the status of this order to the next step (Paid -> Ongoing -> Completed)",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, update it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: true,
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              swalWithBootstrapButtons
+                .fire("Updated!", "Your task has been updated!", "success")
+                .then(function () {
+                  $.get(url, function (data) {});
+                  location.href = url_href;
                 });
-            },
-
-            // Finalize the transaction
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    // Show a success message to the buyer
-                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
-                     $.get( "{% url 'approvepayment' id=form.id%}", function( data ) { 
-                }); 
-                });
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                "Cancelled",
+                "Your request is cancelled. :)",
+                "error"
+              );
             }
+          });
+      });
 
-
-        }).render('#paypal-button-container');
-    </script>
-
-    <script>
-        $(document).ready(function(){
-            $("#customFile").change(function(event){
-                var x = URL.createObjectURL(event.target.files[0]);
-                $("#display-img").attr("src",x);
-                console.log(event);
+      $(".ccf").click(function (e) {
+        e.preventDefault();
+        var tthis = $(this);
+        var usersid = $(this).attr("order_id");
+        var url = "{% url 'reserved-status' id=1 %}".replace("1", usersid);
+        var url_href = "{% url 'summary' id=1 %}".replace("1", usersid);
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger",
+          },
+          buttonsStyling: false,
+        });
+        swalWithBootstrapButtons
+          .fire({
+            title: "Are you sure?",
+            text: "You're gonna reserve this task to your account",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, update it!",
+            cancelButtonText: "No, I don't want to!",
+            reverseButtons: true,
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              swalWithBootstrapButtons
+                .fire(
+                  "Reserved!",
+                  "This task has been reserved to you",
+                  "success"
+                )
+                .then(function () {
+                  $.get(url, function (data) {});
+                  location.href = url_href;
                 });
-        })
-    </script>
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                "Cancelled",
+                "Your request is cancelled. :)",
+                "error"
+              );
+            }
+          });
+      });
 
+      $(".ddf").click(function (e) {
+        e.preventDefault();
+        var tthis = $(this);
+        var usersid = $(this).attr("order_id");
+        var url = "{% url 'cancel-status' id=1 %}".replace("1", usersid);
+        var url_href = "{% url 'summary' id=1 %}".replace("1", usersid);
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger",
+          },
+          buttonsStyling: false,
+        });
+        swalWithBootstrapButtons
+          .fire({
+            title: "Are you sure?",
+            text: "You're updating the status of this order to Cancel",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, update it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: true,
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              swalWithBootstrapButtons
+                .fire("Updated!", "Your task has been updated!", "success")
+                .then(function () {
+                  $.get(url, function (data) {});
+                  location.href = url_href;
+                });
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                "Cancelled",
+                "Your request is cancelled. :)",
+                "error"
+              );
+            }
+          });
+      });
 
-<script>
-$(function() {
-    $('.aaf').click(function (e) {
-      e.preventDefault();
-      var tthis = $(this);
-      var usersid =  $(this).attr("order_id");
-      var url = "{% url 'update-status' id=1 %}".replace('1', usersid);
-      var url_href = "{% url 'summary' id=1 %}".replace('1', usersid);
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      })
-    swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: "You're updating the status of this order to the next step (Paid -> Ongoing -> Completed)",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, update it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        swalWithBootstrapButtons.fire(
-          'Updated!',
-          'Your task has been updated!',
-          'success'
-        ).then(function(){ 
-    $.get( url, function( data ) { 
-  });
-    location.href = url_href
-   });
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your request is cancelled. :)',
-          'error'
-        )
-      }
-    })
-     
-      
-});
-
-
-    $('.ccf').click(function (e) {
-      e.preventDefault();
-      var tthis = $(this);
-      var usersid =  $(this).attr("order_id");
-      var url = "{% url 'reserved-status' id=1 %}".replace('1', usersid);
-      var url_href = "{% url 'summary' id=1 %}".replace('1', usersid);
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      })
-    swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: "You're gonna reserve this task to your account",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, update it!',
-      cancelButtonText: "No, I don't want to!",
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        swalWithBootstrapButtons.fire(
-          'Reserved!',
-          'This task has been reserved to you',
-          'success'
-        ).then(function(){ 
-    $.get( url, function( data ) { 
-  });
-    location.href = url_href
-   });
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your request is cancelled. :)',
-          'error'
-        )
-      }
-    })
-     
-      
-});
-
-    $('.ddf').click(function (e) {
-      e.preventDefault();
-      var tthis = $(this);
-      var usersid =  $(this).attr("order_id");
-      var url = "{% url 'cancel-status' id=1 %}".replace('1', usersid);
-      var url_href = "{% url 'summary' id=1 %}".replace('1', usersid);
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      })
-    swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: "You're updating the status of this order to Cancel",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, update it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        swalWithBootstrapButtons.fire(
-          'Updated!',
-          'Your task has been updated!',
-          'success'
-        ).then(function(){ 
-    $.get( url, function( data ) { 
-  });
-    location.href = url_href
-   });
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your request is cancelled. :)',
-          'error'
-        )
-      }
-    })
-     
-      
-});
-
-
-    $('.eef').click(function (e) {
-      e.preventDefault();
-      var tthis = $(this);
-      var usersid =  $(this).attr("order_id");
-      var url = "{% url 'cancel-status' id=1 %}".replace('1', usersid);
-      var url_href = "{% url 'profile' %}";
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-      })
-    swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: "You're updating the status of this order to Cancel",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, update it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        swalWithBootstrapButtons.fire(
-          'Updated!',
-          'Your task has been updated!',
-          'success'
-        ).then(function(){ 
-    $.get( url, function( data ) { 
-  });
-    location.href = url_href
-   });
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Your request is cancelled. :)',
-          'error'
-        )
-      }
-    })
-     
-      
-});
-
-});
-
-</script>
-
-
-
+      $(".eef").click(function (e) {
+        e.preventDefault();
+        var tthis = $(this);
+        var usersid = $(this).attr("order_id");
+        var url = "{% url 'cancel-status' id=1 %}".replace("1", usersid);
+        var url_href = "{% url 'profile' %}";
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger",
+          },
+          buttonsStyling: false,
+        });
+        swalWithBootstrapButtons
+          .fire({
+            title: "Are you sure?",
+            text: "You're updating the status of this order to Cancel",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, update it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: true,
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              swalWithBootstrapButtons
+                .fire("Updated!", "Your task has been updated!", "success")
+                .then(function () {
+                  $.get(url, function (data) {});
+                  location.href = url_href;
+                });
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire(
+                "Cancelled",
+                "Your request is cancelled. :)",
+                "error"
+              );
+            }
+          });
+      });
+    });
+  </script>
 
 {%endblock%}

@@ -89,7 +89,7 @@
                             </li> -->
                             <li class="list-group-item">
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" id="prayerCheck" type="checkbox" name="prayerCheck">
+                                    <input class="custom-control-input" id="prayerCheck" type="checkbox" name="prayerCheck" prayerPrice="1500">
                                     <label class="cursor-pointer font-italic d-block custom-control-label" for="prayerCheck"><p class="mb-0">Prayer Service and Candle Lighting - ₱1500</p><span class="small font-italic text-muted">This service provides a personal prayer for your loved one, as well as lighting candles to dedicate to their memory.</span>
                                     </label>
                                  <label for="prayerCheck"><img src="../../static/lapida_app/menu/images/prayerimg.png" alt="" width="180"></label>
@@ -106,7 +106,7 @@
                             <ul class="list-group">
                                 <li class="list-group-item rounded-0 d-flex align-items-center justify-content-between">
                                     <div class="custom-control custom-checkbox">
-                                        <input class="custom-control-input" id="gravecareCheck" type="checkbox" name="gravecareCheck"  value="Gravestone Care - ₱1000" checked>
+                                        <input class="custom-control-input" id="gravecareCheck" type="checkbox" name="gravecareCheck" graveprice="1000" value="Gravestone Care - ₱1000" checked>
                                         <label class="custom-control-label" for="gravecareCheck">
                                             <p class="mb-0">Gravestone Care - ₱1000</p><span class="small font-italic text-muted">Cleansing of dirt and other artifacts alongside the re-establishing of the gravestone foundation.</span>
                                         </label>
@@ -115,7 +115,7 @@
                                 </li>
                                 <li class="list-group-item d-flex align-items-center justify-content-between">
                                     <div class="custom-control custom-checkbox">
-                                        <input class="custom-control-input" id="landscapeCheck" name="landscapeCheck" type="checkbox" value="Landscape Care - ₱1000" checked>
+                                        <input class="custom-control-input" id="landscapeCheck" name="landscapeCheck" type="checkbox" graveprice="1000" value="Landscape Care - ₱1000" checked>
                                         <label class="custom-control-label" for="landscapeCheck">
                                             <p class="mb-0">Landscape Care - ₱1000</p><span class="small font-italic text-muted">Extensive maintenance of the land surrounding the gravestone.</span>
                                         </label>
@@ -142,139 +142,25 @@
                             <h2 class="h4 mb-1" id="arrangementtext">Choose the Type of Flower Arrangement</h2>
                             <div name="citiforagroup" id="citiforagroup">
                                 <ul class="list-group">
-                                    <li class="list-group-item rounded-0 d-flex align-items-center justify-content-between">
-                                        <div class="custom-control custom-radio">
-                                            <input class="custom-control-input" id="citiforaRadio1" type="radio" name="citiforaRadio" value="SYM-70 - ₱3490" checked>
-                                            <label class="custom-control-label" for="citiforaRadio1">
-                                                <p class="mb-0">SYM-70 - ₱3490</p><span class="small font-italic text-muted">A coffin spray arrangement of orchids and casa blanca, along with fillers. Sympathy flowers in a basket.</span>
-                                            </label>
-                                        </div>
-                                        <label for="citiforaRadio1"><img src="../../static/lapida_app/menu/images/citifora1.jpg" alt="" width="60"></label>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center justify-content-between">
-                                        <div class="custom-control custom-radio">
-                                            <input class="custom-control-input" id="citiforaRadio2" type="radio" name="citiforaRadio" value="SYM-72 - ₱3490">
-                                            <label class="custom-control-label" for="citiforaRadio2">
-                                                <p class="mb-0">SYM-72 - ₱3490</p><span class="small font-italic text-muted">A coffin spray arrangement of orchids and tuberoses, along with fillers. Send sympathy flowers to convey your sorrow for the loss of a loved one.</span>
-                                            </label>
-                                        </div>
-                                        <label for="citiforaRadio2"><img src="../../static/lapida_app/menu/images/citifora2.jpg" alt="" width="60"></label>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center justify-content-between">
-                                        <div class="custom-control custom-radio">
-                                            <input class="custom-control-input" id="citiforaRadio3" type="radio" name="citiforaRadio" value ="SYM-73 - ₱3000">
-                                            <label class="custom-control-label" for="citiforaRadio3">
-                                                <p class="mb-0">SYM-73 - ₱3000</p><span class="small font-italic text-muted">A coffin spray arrangement of cattleya orchids, along with fillers. Pick this one because it's the cheapest!</span>
-                                            </label>
-                                        </div>
-                                        <label for="citiforaRadio3"><img src="../../static/lapida_app/menu/images/citifora3.jpg" alt="" width="60"></label>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center justify-content-between">
-                                        <div class="custom-control custom-radio">
-                                            <input class="custom-control-input" id="citiforaRadio4" type="radio" name="citiforaRadio" value ="SYM-82 - ₱3490">
-                                            <label class="custom-control-label" for="citiforaRadio4">
-                                                <p class="mb-0">SYM-82 - ₱3490</p><span class="small font-italic text-muted">A basket spray arrangement of cattleya orchids and mums. A combination of white flowers in a basket.</span>
-                                            </label>
-                                        </div>
-                                        <label for="citiforaRadio4"><img src="../../static/lapida_app/menu/images/citifora4.jpg" alt="" width="60"></label>
-                                    </li>
+                                   {%for flower in flowers.CF%}
+                                    {{flower|safe}}
+                                   {%endfor -%}
                                 </ul>
                             </div>
                             <ul class="list-group" name="gertudesgroup" id="gertudesgroup">
-                                <li class="list-group-item rounded-0 d-flex align-items-center justify-content-between">
-                                    <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" id="gertudesRadio1" type="radio" name="gertudesRadio" value="MIX1 - ₱1500" checked>
-                                        <label class="custom-control-label" for="gertudesRadio1">
-                                            <p class="mb-0">MIX1 - ₱1500</p><span class="small font-italic text-muted">A bunch of red flowers mixed in a basket.</span>
-                                        </label>
-                                    </div>
-                                    <label for="gertudesRadio1"><img src="../../static/lapida_app/menu/images/gertudes1.jpg" alt="" width="60"></label>
-                                </li>
-                                <li class="list-group-item rounded-0 d-flex align-items-center justify-content-between">
-                                    <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" id="gertudesRadio2" type="radio" name="gertudesRadio" value="SYMP-28 - ₱1500">
-                                        <label class="custom-control-label" for="gertudesRadio2">
-                                            <p class="mb-0">SYMP-28 - ₱1500</p><span class="small font-italic text-muted">A bunch of red and white flowers in a basket with aloe and some small, decorative flowers.</span>
-                                        </label>
-                                    </div>
-                                    <label for="gertudesRadio2"><img src="../../static/lapida_app/menu/images/gertudes2.jpg" alt="" width="60"></label>
-                                </li>
-                                <li class="list-group-item rounded-0 d-flex align-items-center justify-content-between">
-                                    <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" id="gertudesRadio3" type="radio" name="gertudesRadio" value="SYMP-B7 - ₱1700">
-                                        <label class="custom-control-label" for="gertudesRadio3">
-                                            <p class="mb-0">SYMP-B7 - ₱1700</p><span class="small font-italic text-muted">A bunch of pink flowers with white flowers in a basket with little flowers for design.</span>
-                                        </label>
-                                    </div>
-                                    <label for="gertudesRadio3"><img src="../../static/lapida_app/menu/images/gertudes3.jpg" alt="" width="60"></label>
-                                </li>
-                                <li class="list-group-item rounded-0 d-flex align-items-center justify-content-between">
-                                    <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" id="gertudesRadio4" type="radio" name="gertudesRadio" value="SYMP-CAS2 - ₱2500">
-                                        <label class="custom-control-label" for="gertudesRadio4">
-                                            <p class="mb-0">SYMP-CAS2 - ₱2500</p><span class="small font-italic text-muted">A combination of white flowers in a basket that represents purity.</span>
-                                        </label>
-                                    </div>
-                                    <label for="gertudesRadio4"><img src="../../static/lapida_app/menu/images/gertudes4.jpg" alt="" width="60"></label>
-                                </li>
-                                <li class="list-group-item rounded-0 d-flex align-items-center justify-content-between">
-                                    <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" id="gertudesRadio5" type="radio" name="gertudesRadio" value="SYMP-CAS3 - ₱4500">
-                                        <label class="custom-control-label" for="gertudesRadio5">
-                                            <p class="mb-0">SYMP-CAS3 - ₱4500</p><span class="small font-italic text-muted">A combination of white roses and lilies in a basket to represent your purest sympathy.</span>
-                                        </label>
-                                    </div>
-                                    <label for="gertudesRadio5"><img src="../../static/lapida_app/menu/images/gertudes5.jpg" alt="" width="60"></label>
-                                </li>
+                                {%for flower in flowers.GF%}
+                                {{flower|safe}}
+                               {%endfor -%}
                             </ul>
                             <ul class="list-group" name="raphaelgroup" id="raphaelgroup">
-                                <li class="list-group-item rounded-0 d-flex align-items-center justify-content-between">
-                                    <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" id="raphaelRadio1" type="radio" name="raphaelRadio" value="Basket Of Love - ₱4990" checked>
-                                        <label class="custom-control-label" for="raphaelRadio1">
-                                            <p class="mb-0">Basket Of Love - ₱4990</p><span class="small font-italic text-muted">Fresh stems white oriental lilies, white mums, 10 pieces imported roses, snap dragons with fillers beautifully arranged in a wicker basket, perfect for sympathy arrangement.</span>
-                                        </label>
-                                    </div>
-                                    <label for="raphaelRadio1"><img src="../../static/lapida_app/menu/images/raphael1.jpg" alt="" width="60"></label>
-                                </li>
-                                <li class="list-group-item rounded-0 d-flex align-items-center justify-content-between">
-                                    <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" id="raphaelRadio2" type="radio" name="raphaelRadio" value="Perfect White Box - ₱1990">
-                                        <label class="custom-control-label" for="raphaelRadio2">
-                                            <p class="mb-0">Perfect White Box - ₱1990</p><span class="small font-italic text-muted">12 white Imported roses (Bangkok) in a box.  Perfect for Valentines, Birthday, Anniversary or Funeral & Sympathy.</span>
-                                        </label>
-                                    </div>
-                                    <label for="raphaelRadio2"><img src="../../static/lapida_app/menu/images/raphael2.jpg" alt="" width="60"></label>
-                                </li>
-                                <li class="list-group-item rounded-0 d-flex align-items-center justify-content-between">
-                                    <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" id="raphaelRadio3" type="radio" name="raphaelRadio" value="Roses and Casa Blanca Sympathy - ₱9990">
-                                        <label class="custom-control-label" for="raphaelRadio3">
-                                            <p class="mb-0">Roses and Casa Blanca Sympathy - ₱9990</p><span class="small font-italic text-muted">A lovely and ornate funeral wreath of roses, and casa blanca and orchids, presented on a 6 ft. stand for a beautiful and touching tribute to the deceased.</span>
-                                        </label>
-                                    </div>
-                                    <label for="raphaelRadio3"><img src="../../static/lapida_app/menu/images/raphael3.jpg" alt="" width="60"></label>
-                                </li>
+                                {%for flower in flowers.RG%}
+                                {{flower|safe}}
+                               {%endfor -%}
                             </ul>
                             <ul class="list-group" name="larosegroup" id="larosegroup">
-                                <li class="list-group-item rounded-0 d-flex align-items-center justify-content-between">
-                                    <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" id="laroseRadio1" type="radio" name="laroseRadio" value="Sympathy Flat Spray - ₱7500" checked>
-                                        <label class="custom-control-label" for="laroseRadio1">
-                                            <p class="mb-0">Sympathy Flat Spray - ₱7500</p><span class="small font-italic text-muted">Sympathy flat spray arrangement of elegant mixed flowers in a basket.</span>
-                                        </label>
-                                    </div>
-                                    <label for="laroseRadio1"><img src="../../static/lapida_app/menu/images/larose1.jpg" alt="" width="60"></label>
-                                </li>
-                                <li class="list-group-item rounded-0 d-flex align-items-center justify-content-between">
-                                    <div class="custom-control custom-radio">
-                                        <input class="custom-control-input" id="laroseRadio2" type="radio" name="laroseRadio" value="Sympathy Violet Orchids Basket - ₱2500">
-                                        <label class="custom-control-label" for="laroseRadio2">
-                                            <p class="mb-0">Sympathy Violet Orchids Basket - ₱2500</p><span class="small font-italic text-muted">Two dozen violet orchids in a basket.</span>
-                                        </label>
-                                    </div>
-                                    <label for="laroseRadio2"><img src="../../static/lapida_app/menu/images/larose2.jpg" alt="" width="60"></label>
-                                </li>
+                                {%for flower in flowers.LR%}
+                                {{flower|safe}}
+                               {%endfor -%}
                             </ul>
                         </div>
                     </div>
@@ -300,7 +186,7 @@
                     </div>
                 </div>
 
-                <div id="candlecard" class="checkout">
+                {% comment %} <div id="candlecard" class="checkout">
                     <div class="card shadow border-0 mb-5">
                         <div class="card-body p-5">
                             <h2 class="h4 mb-1">Customize your Candle Options</h2>
@@ -330,7 +216,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div> {% endcomment %}
 
 <div id="checkout" class="checkout">
     <div class="card shadow border-0 mb-5">
@@ -338,61 +224,23 @@
           <!-- Card -->
           <div class="card-body p-5">
               <h2 class="h4 mb-1">Payment Summary</h2>
-
               <ul class="list-group list-group-flush">
                 <div id="gravesiteheader">
-                <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0'>Gravesite Care</li>
+                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0'>Gravesite Care</li>
                 </div>
                 <div id="gravestoneprice">
-                <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Gravestone Care<span>₱1000.00</span></li>
+                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Gravestone Care<span>₱1000.00</span></li>
                 </div>
                 <div id="landscapeprice">
-                <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Landscape Care<span>₱1000.00</span></li>
+                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Landscape Care<span>₱1000.00</span></li>
                 </div>
-                <div id="floralheader">
-                <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0'>Floral Arrangements</li>
-                </div>
-                <div id="citiforaprice1">
-                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Citifora Flowers - SYM-70<span>₱3490.00</span></li>
-                </div>
-                <div id="citiforaprice2">
-                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Citifora Flowers - SYM-72<span>₱3490.00</span></li>
-                </div>
-                <div id="citiforaprice3">
-                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Citifora Flowers - SYM-73<span>₱3000.00</span></li>
-                </div>
-                <div id="citiforaprice4">
-                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Citifora Flowers - SYM-82<span>₱3490.00</span></li>
-                </div>
-                <div id="gertudesprice1">
-                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Gertudes Flowershop - MIX1<span>₱1500.00</span></li>
-                </div>
-                <div id="gertudesprice2">
-                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Gertudes Flowershop - SYMP-28<span>₱1500.00</span></li>
-                </div>
-                <div id="gertudesprice3">
-                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Gertudes Flowershop - SYMP-B7<span>₱1700.00</span></li>
-                </div>
-                <div id="gertudesprice4">
-                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Gertudes Flowershop - SYMP-CAS2<span>₱2500.00</span></li>
-                </div>
-                <div id="gertudesprice5">
-                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Gertudes Flowershop - SYMP-CAS3<span>₱4500.00</span></li>
-                </div>
-                <div id="raphaelprice1">
-                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Raphael's Gifts - Basket Of Love<span>₱4990.00</span></li>
-                </div>
-                <div id="raphaelprice2">
-                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Raphael's Gifts - Perfect White Box<span>₱1990.00</span></li>
-                </div>
-                <div id="raphaelprice3">
-                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>Raphael's Gifts - Roses and Casa Blanca Sympathy<span>₱9990.00</span></li>
-                </div>
-                <div id="laroseprice1">
-                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>La Rose - Sympathy Flat Spray<span>₱7500.00</span></li>
-                </div>
-                <div id="laroseprice2">
-                    <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 tab'>La Rose - Sympathy Violet Orchids Basket<span>₱2500.00</span></li>
+                <div id="flowersection">
+                    <div id="floralheader">
+                        <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0'>Floral Arrangements</li>
+                    </div>
+                    {%for flower_summary in flowers_summary%}
+                    {{flower_summary|safe}}
+                   {%endfor -%}
                 </div>
                 <!-- <div id="candleprice">
                 <li class='list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0'>Candle Lights<span>₱500.00</span></li>
@@ -434,20 +282,13 @@ $(document).ready(function(){
 $('input[type=number]').inputSpinner();
 
 $('#datepicker').datepicker();
-var finalpay = 0;
-var citiforaprevrad = 1;
-var gertudesprevrad = 1;
-var raphaelprevrad = 1;
-var laroseprevrad = 1;
-var flowerselectprevrad = 0;
-
+var old_flower = ""
 // Checkbox interactions
 
 $('#gravecard').hide();
 $('#flowercard').hide();
 $('#datepickercard').hide();
 $('#notecard').hide();
-$('#candlecard').hide();
 $('#gravesiteheader, #floralheader, #citiforagroup, #gertudesgroup, #raphaelgroup, #larosegroup, #arrangementtext, #gravestoneprice, #landscapeprice, #candleprice, #prayerprice').hide();
 $('#citiforaprice1, #citiforaprice2, #citiforaprice3, #citiforaprice4, #gertudesprice1, #gertudesprice2, #gertudesprice3, #gertudesprice4, #gertudesprice5, #raphaelprice1, #raphaelprice2, #raphaelprice3, #laroseprice1, #laroseprice2').hide();
 
@@ -463,7 +304,6 @@ $('#notecard').fadeOut('slow');
 $('#checkout').fadeOut('slow');
 }
 });
-
 $('#graveCheck').change(function(){
 if($('#graveCheck').is(':checked')){
 $('#gravecareCheck').prop('checked', true);
@@ -498,24 +338,14 @@ $('#notecard').fadeOut('slow');
 $('#checkout').fadeOut('slow');
 }
 });
-
 // Dynamic Payment Display Behavior
-
-
 $('#gravecareCheck').change(function(){
+    compute_finalpay()
     if($('#gravecareCheck').is(':checked')){
-        finalpay = finalpay + 1000;
         $('#gravesiteheader').fadeIn('slow');
         $('#gravestoneprice').fadeIn('slow');
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        option = "Cleansing of dirt and other artifacts alongside the re-establishing of the gravestone foundation. ";
-        var current_option = $(this).attr('summary');
-        var final_option = current_option.concat(option)
-        $("#summary").val(final_option);
     }
     else{
-        finalpay = finalpay - 1000;
         if(!$('#landscapeCheck').is(':checked')){
             $('#gravesiteheader').fadeOut('slow');
             $('#gravecard').fadeOut('slow');
@@ -526,29 +356,16 @@ $('#gravecareCheck').change(function(){
             $('#graveCheck').prop('checked', false);
         }
         $('#gravestoneprice').fadeOut('slow');
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        var current_option = $(this).attr('summary');
-        var final_option = current_option.replace("Cleansing of dirt and other artifacts alongside the re-establishing of the gravestone foundation. ", "")  
-        $("#summary").val(final_option);      
     }
-    $("#cat_id").val(finalpay);
 });
 
 $('#landscapeCheck').change(function(){
+    compute_finalpay()
     if($('#landscapeCheck').is(':checked')){
-        finalpay = finalpay + 1000;
         $('#gravesiteheader').fadeIn('slow');
         $('#landscapeprice').fadeIn('slow');
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        option = "Extensive maintenance of the land surrounding the gravestone. ";
-        var current_option = $(this).attr('summary');
-        var final_option = current_option.concat(option)
-        $("#summary").val(final_option);
     }
     else{
-        finalpay = finalpay - 1000;
         if(!$('#gravecareCheck').is(':checked')){
             $('#gravesiteheader').fadeOut('slow');
             $('#gravecard').fadeOut('slow');
@@ -559,214 +376,72 @@ $('#landscapeCheck').change(function(){
             $('#graveCheck').prop('checked', false);
         }
         $('#landscapeprice').fadeOut('slow');
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        var current_option = $(this).attr('summary');
-        var final_option = current_option.replace("Extensive maintenance of the land surrounding the gravestone. ", "")  
-        $("#summary").val(final_option); 
     }
-$("#cat_id").val(finalpay);
 });
 
-
 $('#graveCheck').change(function(){
+    compute_finalpay()
     if($('#graveCheck').is(':checked')){
         if($('#gravecareCheck').is(':checked')){
-            finalpay = finalpay + 1000;
             $('#gravesiteheader').fadeIn('slow');
             $('#gravestoneprice').fadeIn('slow');
-            $("#totalpay").empty();
-            $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
+           
+            
         }
         if($('#landscapeCheck').is(':checked')){
-            finalpay = finalpay + 1000;
             $('#gravesiteheader').fadeIn('slow');
             $('#landscapeprice').fadeIn('slow');
-            $("#totalpay").empty();
-            $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
+           
+            
         }
     }
     else{
         if($('#gravecareCheck').is(':checked')){
-            finalpay = finalpay - 1000;
             $('#gravesiteheader').fadeOut('slow');
             $('#gravestoneprice').fadeOut('slow');
-            $("#totalpay").empty();
-            $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
+           
+            
         }
         if($('#landscapeCheck').is(':checked')){
-            finalpay = finalpay - 1000;
             $('#gravesiteheader').fadeOut('slow');
             $('#landscapeprice').fadeOut('slow');
-            $("#totalpay").empty();
-            $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
+           
+            
         }
     }
-    $("#cat_id").val(finalpay);
+    
 });
 
 // Flower Select Change
-
-
 $('#flowerSelect').change(function(){
+    compute_finalpay()
     $('#floralheader').fadeIn('slow');
+    $('#datepickercard').fadeIn('slow');
+    $('#notecard').fadeIn('slow');
+    $('#checkout').fadeIn('slow');
+    $('#flowersection').fadeIn('slow');
     if(this.value == "citifora"){
-        $('#citiforaprice1, #citiforaprice2, #citiforaprice3, #citiforaprice4, #gertudesprice1, #gertudesprice2, #gertudesprice3, #gertudesprice4, #gertudesprice5, #raphaelprice1, #raphaelprice2, #raphaelprice3, #laroseprice1, #laroseprice2').hide();
         $('#citiforagroup').fadeIn('slow');
         $('#gertudesgroup').hide();
         $('#raphaelgroup').hide();
         $('#larosegroup').hide();
-        $('#datepickercard').fadeIn('slow');
-        $('#notecard').fadeIn('slow');
-        $('#checkout').fadeIn('slow');
-
-        if(flowerselectprevrad == 2){
-            if($('#gertudesRadio1').is(':checked'))
-                finalpay = finalpay - 1500;
-            else if($('#gertudesRadio2').is(':checked'))
-                finalpay = finalpay - 1500;
-            else if($('#gertudesRadio3').is(':checked'))
-                finalpay = finalpay - 1700;
-            else if($('#gertudesRadio4').is(':checked'))
-                finalpay = finalpay - 2500;
-            else if($('#gertudesRadio5').is(':checked'))
-                finalpay = finalpay - 4500;
-        }
-        else if (flowerselectprevrad == 3){
-            if($('#raphaelRadio1').is(':checked'))
-                finalpay = finalpay - 4990;
-            else if($('#raphaelRadio2').is(':checked'))
-                finalpay = finalpay - 1990;
-            else if($('#raphaelRadio3').is(':checked'))
-                finalpay = finalpay - 9990;
-        }
-        else if (flowerselectprevrad == 4){
-            if($('#laroseRadio1').is(':checked'))
-                finalpay = finalpay - 7500;
-            else if($('#laroseRadio2').is(':checked'))
-                finalpay = finalpay - 2500;
-        }
-
-        $("#citiforaRadio1").prop("checked", true);
-        $("#gertudesRadio1").prop("checked", true);
-        $("#raphaelRadio1").prop("checked", true);
-        $("#laroseRadio1").prop("checked", true);
-
-        flowerselectprevrad = 1;
-        
-        finalpay = finalpay + 3490;
-        $('#citiforaprice1').fadeIn('slow');
-        $('#citiforaprice2').hide();
-        $('#citiforaprice3').hide();
-        $('#citiforaprice4').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        citiforaprevrad = 1;
+        update_flowers()
     }
     else if(this.value == "gertudes"){
-        $('#citiforaprice1, #citiforaprice2, #citiforaprice3, #citiforaprice4, #gertudesprice1, #gertudesprice2, #gertudesprice3, #gertudesprice4, #gertudesprice5, #raphaelprice1, #raphaelprice2, #raphaelprice3, #laroseprice1, #laroseprice2').hide();
         $('#gertudesgroup').fadeIn('slow');
         $('#citiforagroup').hide();
         $('#raphaelgroup').hide();
         $('#larosegroup').hide();
-        $('#datepickercard').fadeIn('slow');
-        $('#notecard').fadeIn('slow');
-        $('#checkout').fadeIn('slow');
-
-        if(flowerselectprevrad == 1){
-            if($('#citiforaRadio1').is(':checked'))
-                finalpay = finalpay - 3490;
-            else if($('#citiforaRadio2').is(':checked'))
-                finalpay = finalpay - 3490;
-            else if($('#citiforaRadio3').is(':checked'))
-                finalpay = finalpay - 3000;
-            else if($('#citiforaRadio4').is(':checked'))
-                finalpay = finalpay - 3490;
-        }
-        else if (flowerselectprevrad == 3){
-            if($('#raphaelRadio1').is(':checked'))
-                finalpay = finalpay - 4990;
-            else if($('#raphaelRadio2').is(':checked'))
-                finalpay = finalpay - 1990;
-            else if($('#raphaelRadio3').is(':checked'))
-                finalpay = finalpay - 9990;
-        }
-        else if (flowerselectprevrad == 4){
-            if($('#laroseRadio1').is(':checked'))
-                finalpay = finalpay - 7500;
-            else if($('#laroseRadio2').is(':checked'))
-                finalpay = finalpay - 2500;
-        }
-
-        $("#citiforaRadio1").prop("checked", true);
-        $("#gertudesRadio1").prop("checked", true);
-        $("#raphaelRadio1").prop("checked", true);
-        $("#laroseRadio1").prop("checked", true);
-
-        flowerselectprevrad = 2;
-        
-        finalpay = finalpay + 1500;
-        $('#gertudesprice1').fadeIn('slow');
-        $('#gertudesprice2').hide();
-        $('#gertudesprice3').hide();
-        $('#gertudesprice4').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        gertudesprevrad = 1;
+        update_flowers()
     }
     else if(this.value == "raphael"){
-        $('#citiforaprice1, #citiforaprice2, #citiforaprice3, #citiforaprice4, #gertudesprice1, #gertudesprice2, #gertudesprice3, #gertudesprice4, #gertudesprice5, #raphaelprice1, #raphaelprice2, #raphaelprice3, #laroseprice1, #laroseprice2').hide();
         $('#raphaelgroup').fadeIn('slow');
         $('#citiforagroup').hide();
         $('#gertudesgroup').hide();
         $('#larosegroup').hide();
-        $('#datepickercard').fadeIn('slow');
         $('#notecard').fadeIn('slow');
         $('#checkout').fadeIn('slow');
-
-        if(flowerselectprevrad == 1){
-            if($('#citiforaRadio1').is(':checked'))
-                finalpay = finalpay - 3490;
-            else if($('#citiforaRadio2').is(':checked'))
-                finalpay = finalpay - 3490;
-            else if($('#citiforaRadio3').is(':checked'))
-                finalpay = finalpay - 3000;
-            else if($('#citiforaRadio4').is(':checked'))
-                finalpay = finalpay - 3490;
-        }
-        else if (flowerselectprevrad == 2){
-            if($('#gertudesRadio1').is(':checked'))
-                finalpay = finalpay - 1500;
-            else if($('#gertudesRadio2').is(':checked'))
-                finalpay = finalpay - 1500;
-            else if($('#gertudesRadio3').is(':checked'))
-                finalpay = finalpay - 1700;
-            else if($('#gertudesRadio4').is(':checked'))
-                finalpay = finalpay - 2500;
-            else if($('#gertudesRadio5').is(':checked'))
-                finalpay = finalpay - 4500;
-        }
-        else if (flowerselectprevrad == 4){
-            if($('#laroseRadio1').is(':checked'))
-                finalpay = finalpay - 7500;
-            else if($('#laroseRadio2').is(':checked'))
-                finalpay = finalpay - 2500;
-        }
-
-        $("#citiforaRadio1").prop("checked", true);
-        $("#gertudesRadio1").prop("checked", true);
-        $("#raphaelRadio1").prop("checked", true);
-        $("#laroseRadio1").prop("checked", true);
-
-        flowerselectprevrad = 3;
-
-        finalpay = finalpay + 4990;
-        $('#raphaelprice1').fadeIn('slow');
-        $('#raphaelprice2').hide();
-        $('#raphaelprice3').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        raphaelprevrad = 1;
+        update_flowers()
     }
     else if(this.value == "larose"){
         $('#citiforaprice1, #citiforaprice2, #citiforaprice3, #citiforaprice4, #gertudesprice1, #gertudesprice2, #gertudesprice3, #gertudesprice4, #gertudesprice5, #raphaelprice1, #raphaelprice2, #raphaelprice3, #laroseprice1, #laroseprice2').hide();
@@ -774,562 +449,106 @@ $('#flowerSelect').change(function(){
         $('#citiforagroup').hide();
         $('#gertudesgroup').hide();
         $('#raphaelgroup').hide();
-        $('#datepickercard').fadeIn('slow');
-        $('#notecard').fadeIn('slow');
-        $('#checkout').fadeIn('slow');
-
-        if(flowerselectprevrad == 1){
-            if($('#citiforaRadio1').is(':checked'))
-                finalpay = finalpay - 3490;
-            else if($('#citiforaRadio2').is(':checked'))
-                finalpay = finalpay - 3490;
-            else if($('#citiforaRadio3').is(':checked'))
-                finalpay = finalpay - 3000;
-            else if($('#citiforaRadio4').is(':checked'))
-                finalpay = finalpay - 3490;
-        }
-        else if (flowerselectprevrad == 2){
-            if($('#gertudesRadio1').is(':checked'))
-                finalpay = finalpay - 1500;
-            else if($('#gertudesRadio2').is(':checked'))
-                finalpay = finalpay - 1500;
-            else if($('#gertudesRadio3').is(':checked'))
-                finalpay = finalpay - 1700;
-            else if($('#gertudesRadio4').is(':checked'))
-                finalpay = finalpay - 2500;
-            else if($('#gertudesRadio5').is(':checked'))
-                finalpay = finalpay - 4500;
-        }
-        else if (flowerselectprevrad == 3){
-            if($('#raphaelRadio1').is(':checked'))
-                finalpay = finalpay - 4990;
-            else if($('#raphaelRadio2').is(':checked'))
-                finalpay = finalpay - 1990;
-            else if($('#raphaelRadio3').is(':checked'))
-                finalpay = finalpay - 9990;
-        }
-
-        $("#citiforaRadio1").prop("checked", true);
-        $("#gertudesRadio1").prop("checked", true);
-        $("#raphaelRadio1").prop("checked", true);
-        $("#laroseRadio1").prop("checked", true);
-
-        flowerselectprevrad = 4;
-
-        finalpay = finalpay + 7500;
-        $('#laroseprice1').fadeIn('slow');
-        $('#laroseprice2').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        laroseprevrad = 1;
+        update_flowers()
     }
 });
 
+$("input[type='radio'][name='citifora']").change(function(){
+    update_flowers()
+    compute_finalpay()
+})
+$("input[type='radio'][name='gertudes']").change(function(){
+    update_flowers()
+    compute_finalpay()
+})
+$("input[type='radio'][name='raphael']").change(function(){
+    update_flowers()
+    compute_finalpay()
+})
+$("input[type='radio'][name='larose']").change(function(){
+    update_flowers()
+    compute_finalpay()
+})
+
 
 $('#flowerCheck').change(function(){
+    compute_finalpay()
     if($('#flowerCheck').is(':checked')){
-        if($('#flowerSelect').val() != null)
+        $('#flowersection').fadeIn('slow');
+        if($("select[name='flowerSelect']").val()){
             $('#floralheader').fadeIn('slow');
-        if($('#flowerSelect').val() == "citifora"){
-            $('#citiforagroup').fadeIn('slow');
-            if($('#citiforaRadio1').is(':checked')){
-                finalpay = finalpay + 3490;
-                $('#citiforaprice1').fadeIn('slow');
-            }
-            else if($('#citiforaRadio2').is(':checked')){
-                finalpay = finalpay + 3490;
-                $('#citiforaprice2').fadeIn('slow');
-            }
-            else if($('#citiforaRadio3').is(':checked')){
-                finalpay = finalpay + 3000;
-                $('#citiforaprice3').fadeIn('slow');
-            }
-            else if($('#citiforaRadio4').is(':checked')){
-                finalpay = finalpay + 3490;
-                $('#citiforaprice4').fadeIn('slow');
-            }
+            $('#datepickercard').fadeIn('slow');
+            $('#notecard').fadeIn('slow');
+            $('#checkout').fadeIn('slow');
+            $('#flowersection').fadeIn('slow');
         }
-        else if($('#flowerSelect').val() == "gertudes"){
-            $('#gertudesgroup').fadeIn('slow');
-            if($('#gertudesRadio1').is(':checked')){
-                finalpay = finalpay + 1500;
-                $('#gertudesprice1').fadeIn('slow');
-            }
-            else if($('#gertudesRadio2').is(':checked')){
-                finalpay = finalpay + 1500;
-                $('#gertudesprice2').fadeIn('slow');
-            }
-            else if($('#gertudesRadio3').is(':checked')){
-                finalpay = finalpay + 1700;
-                $('#gertudesprice3').fadeIn('slow');
-            }
-            else if($('#gertudesRadio4').is(':checked')){
-                finalpay = finalpay + 2500;
-                $('#gertudesprice4').fadeIn('slow');
-            }
-            else if($('#gertudesRadio5').is(':checked')){
-                finalpay = finalpay + 4500;
-                $('#gertudesprice5').fadeIn('slow');
-            }
-        }
-        else if($('#flowerSelect').val() == "raphael"){
-            $('#raphaelgroup').fadeIn('slow');
-            if($('#raphaelRadio1').is(':checked')){
-                finalpay = finalpay + 4990;
-                $('#raphaelprice1').fadeIn('slow');
-            }
-            else if($('#raphaelRadio2').is(':checked')){
-                finalpay = finalpay + 1990;
-                $('#raphaelprice2').fadeIn('slow');
-            }
-            else if($('#raphaelRadio3').is(':checked')){
-                finalpay = finalpay + 9990;
-                $('#raphaelprice3').fadeIn('slow');
-            }
-        }
-        else if($('#flowerSelect').val() == "larose"){
-            $('#larosegroup').fadeIn('slow');
-            if($('#laroseRadio1').is(':checked')){
-                finalpay = finalpay + 7500;
-                $('#laroseprice1').fadeIn('slow');
-            }
-            else if($('#laroseRadio2').is(':checked')){
-                finalpay = finalpay + 2500;
-                $('#laroseprice2').fadeIn('slow');
-            }
-        }
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
+        update_flowers()
     }
-    else{
-
-        if($('#flowerSelect').val() == "citifora"){
-            if($('#citiforaRadio1').is(':checked'))
-                finalpay = finalpay - 3490;
-            else if($('#citiforaRadio2').is(':checked'))
-                finalpay = finalpay - 3490;
-            else if($('#citiforaRadio3').is(':checked'))
-                finalpay = finalpay - 3000;
-            else if($('#citiforaRadio4').is(':checked'))
-                finalpay = finalpay - 3490;
-        }
-        else if($('#flowerSelect').val() == "gertudes"){
-            if($('#gertudesRadio1').is(':checked'))
-                finalpay = finalpay - 1500;
-            else if($('#gertudesRadio2').is(':checked'))
-                finalpay = finalpay - 1500;
-            else if($('#gertudesRadio3').is(':checked'))
-                finalpay = finalpay - 1700;
-            else if($('#gertudesRadio4').is(':checked'))
-                finalpay = finalpay - 2500;
-            else if($('#gertudesRadio5').is(':checked'))
-                finalpay = finalpay - 4500;
-        }
-        else if($('#flowerSelect').val() == "raphael"){
-            if($('#raphaelRadio1').is(':checked'))
-                finalpay = finalpay - 4990;
-            else if($('#raphaelRadio2').is(':checked'))
-                finalpay = finalpay - 1990;
-            else if($('#raphaelRadio3').is(':checked'))
-                finalpay = finalpay - 9990;
-        }
-        else if($('#flowerSelect').val() == "larose"){
-            if($('#laroseRadio1').is(':checked'))
-                finalpay = finalpay - 7500;
-            else if($('#laroseRadio2').is(':checked'))
-                finalpay = finalpay - 2500;
-        }
-
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        $('#citiforaprice1, #citiforaprice2, #citiforaprice3, #citiforaprice4, #gertudesprice1, #gertudesprice2, #gertudesprice3, #gertudesprice4, #gertudesprice5, #raphaelprice1, #raphaelprice2, #raphaelprice3, #laroseprice1, #laroseprice2').hide();
-        
-        $('#citiforagroup').hide();
-        $('#gertudesgroup').hide();
-        $('#raphaelgroup').hide();
-        $('#larosegroup').hide();
-        $('#floralheader').hide();
+    else{        
+        old_flower = ""
+        $('#flowersection').hide();
     }
-    $("#cat_id").val(finalpay);
 });
 
 $('#candleCheck').change(function(){
     if($('#candleCheck').is(':checked')){
-        finalpay = finalpay + 500;
         $('#candleprice').fadeIn('slow');
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
     }
     else{
-        finalpay = finalpay - 500;
         $('#candleprice').fadeOut('slow');
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
     }
-    $("#cat_id").val(finalpay);
+    
 });
 
 $('#prayerCheck').change(function(){
+    compute_finalpay()
     if($('#prayerCheck').is(':checked')){
-        finalpay = finalpay + 1500;
         $('#prayerprice').fadeIn('slow');
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
     }
     else{
-        finalpay = finalpay - 1500;
         $('#prayerprice').fadeOut('slow');
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
     }
-    $("#cat_id").val(finalpay);
 });
 
-// Citifora Radio Buttons
-
-$('#citiforaRadio1').change(function(){
-    if($('#citiforaRadio1').is(':checked')){
-        if(citiforaprevrad == 2 || citiforaprevrad == 4)
-            finalpay = finalpay - 3490;
-        else if(citiforaprevrad == 3)
-            finalpay = finalpay - 3000;
-         finalpay = finalpay + 3490;
-        $('#citiforaprice1').fadeIn('slow');
-        $('#citiforaprice2').hide();
-        $('#citiforaprice3').hide();
-        $('#citiforaprice4').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        citiforaprevrad = 1;
+function update_flowers(){
+    // Checking for flowers
+    if($('#flowerCheck').is(':checked') && $("select[name='flowerSelect']").val()){
+        var abbrev_flower_shop = $("select[name='flowerSelect']").val()
+        var input_selector = `input[name='${abbrev_flower_shop}']:checked`
+        flower_shop_sumary = $(input_selector).attr("id") + "_summary"
+        if (old_flower){
+            var old_flower_summary = old_flower + "_summary"
+            $(`#${old_flower_summary}`).attr("hidden",true);
+        }
+        $(`#${flower_shop_sumary}`).attr("hidden",false);
+        old_flower = $(input_selector).attr("id")
     }
-    else{
-        $('#citiforaprice1').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-    }
-    $("#cat_id").val(finalpay);
+}
 });
 
-$('#citiforaRadio2').change(function(){
-    if($('#citiforaRadio2').is(':checked')){
-        if(citiforaprevrad == 1 || citiforaprevrad == 4)
-            finalpay = finalpay - 3490;
-        else if(citiforaprevrad == 3)
-            finalpay = finalpay - 3000;
-        finalpay = finalpay + 3490;
-        $('#citiforaprice2').fadeIn('slow');
-        $('#citiforaprice1').hide();
-        $('#citiforaprice3').hide();
-        $('#citiforaprice4').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        citiforaprevrad = 2;
+function compute_finalpay(){
+    // Checking for gravesite Care
+    var new_finalpay = 0
+    if($('#graveCheck').is(':checked')){
+    if($('#landscapeCheck').is(':checked')){
+        new_finalpay = new_finalpay + parseInt($("input[name='landscapeCheck']:checked").attr("graveprice"))
     }
-    else{
-        $('#citiforaprice2').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
+    if($('#gravecareCheck').is(':checked')){
+        new_finalpay = new_finalpay + parseInt($("input[name='gravecareCheck']:checked").attr("graveprice"))
     }
-    $("#cat_id").val(finalpay);
-});
-
-$('#citiforaRadio3').change(function(){
-    if($('#citiforaRadio3').is(':checked')){
-        if(citiforaprevrad == 1 || citiforaprevrad == 2)
-            finalpay = finalpay - 3490;
-        else if(citiforaprevrad == 4)
-            finalpay = finalpay - 3490;
-        finalpay = finalpay + 3000;
-        $('#citiforaprice3').fadeIn('slow');
-        $('#citiforaprice1').hide();
-        $('#citiforaprice2').hide();
-        $('#citiforaprice4').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        citiforaprevrad = 3;
     }
-    else{
-        $('#citiforaprice3').fadeOut('slow');
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
+    // Checking for flowers
+    if($('#flowerCheck').is(':checked') && $("select[name='flowerSelect']").val()){
+        var abbrev_flower_shop = $("select[name='flowerSelect']").val()
+        var input_selector = `input[name='${abbrev_flower_shop}']:checked`
+        new_finalpay = new_finalpay + parseInt($(input_selector).attr("flower_price"))
     }
-    $("#cat_id").val(finalpay);
-});
-
-$('#citiforaRadio4').change(function(){
-    if($('#citiforaRadio4').is(':checked')){
-        if(citiforaprevrad == 1 || citiforaprevrad == 2)
-            finalpay = finalpay - 3490;
-        else if(citiforaprevrad == 3)
-            finalpay = finalpay - 3000;
-         finalpay = finalpay + 3490;
-        $('#citiforaprice4').fadeIn('slow');
-        $('#citiforaprice1').hide();
-        $('#citiforaprice2').hide();
-        $('#citiforaprice3').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        citiforaprevrad = 4;
+    if($('#prayerCheck').is(':checked')){
+        new_finalpay = new_finalpay + parseInt($("input[name='prayerCheck']:checked").attr("prayerPrice"))
     }
-    else{
-        $('#citiforaprice4').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-    }
-    $("#cat_id").val(finalpay);
-});
-
-// Gertudes Radio Buttons
-
-$('#gertudesRadio1').change(function(){
-    if($('#gertudesRadio1').is(':checked')){
-        if(gertudesprevrad == 2)
-            finalpay = finalpay - 1500;
-        else if(gertudesprevrad == 3)
-            finalpay = finalpay - 1700;
-        else if(gertudesprevrad == 4)
-            finalpay = finalpay - 2500;
-        else if(gertudesprevrad == 5)
-            finalpay = finalpay - 4500;
-         finalpay = finalpay + 1500;
-        $('#gertudesprice1').fadeIn('slow');
-        $('#gertudesprice2').hide();
-        $('#gertudesprice3').hide();
-        $('#gertudesprice4').hide();
-        $('#gertudesprice5').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        gertudesprevrad = 1;
-    }
-    else{
-        $('#gertudesprice1').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-    }
-    $("#cat_id").val(finalpay);
-
-});
-
-$('#gertudesRadio2').change(function(){
-    if($('#gertudesRadio2').is(':checked')){
-        if(gertudesprevrad == 1)
-            finalpay = finalpay - 1500;
-        else if(gertudesprevrad == 3)
-            finalpay = finalpay - 1700;
-        else if(gertudesprevrad == 4)
-            finalpay = finalpay - 2500;
-        else if(gertudesprevrad == 5)
-            finalpay = finalpay - 4500;
-         finalpay = finalpay + 1500;
-        $('#gertudesprice2').fadeIn('slow');
-        $('#gertudesprice1').hide();
-        $('#gertudesprice3').hide();
-        $('#gertudesprice4').hide();
-        $('#gertudesprice5').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        gertudesprevrad = 2;
-    }
-    else{
-        $('#gertudesprice2').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-    }
-    $("#cat_id").val(finalpay);
-});
-
-$('#gertudesRadio3').change(function(){
-    if($('#gertudesRadio3').is(':checked')){
-        if(gertudesprevrad == 1)
-            finalpay = finalpay - 1500;
-        else if(gertudesprevrad == 2)
-            finalpay = finalpay - 1500;
-        else if(gertudesprevrad == 4)
-            finalpay = finalpay - 2500;
-        else if(gertudesprevrad == 5)
-            finalpay = finalpay - 4500;
-         finalpay = finalpay + 1700;
-        $('#gertudesprice3').fadeIn('slow');
-        $('#gertudesprice1').hide();
-        $('#gertudesprice2').hide();
-        $('#gertudesprice4').hide();
-        $('#gertudesprice5').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        gertudesprevrad = 3;
-    }
-    else{
-        $('#gertudesprice3').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-    }
-    $("#cat_id").val(finalpay);
-});
-
-$('#gertudesRadio4').change(function(){
-    if($('#gertudesRadio4').is(':checked')){
-        if(gertudesprevrad == 1)
-            finalpay = finalpay - 1500;
-        else if(gertudesprevrad == 2)
-            finalpay = finalpay - 1500;
-        else if(gertudesprevrad == 3)
-            finalpay = finalpay - 1700;
-        else if(gertudesprevrad == 5)
-            finalpay = finalpay - 4500;
-         finalpay = finalpay + 2500;
-        $('#gertudesprice4').fadeIn('slow');
-        $('#gertudesprice1').hide();
-        $('#gertudesprice2').hide();
-        $('#gertudesprice3').hide();
-        $('#gertudesprice5').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        gertudesprevrad = 4;
-    }
-    else{
-        $('#gertudesprice4').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-    }
-    $("#cat_id").val(finalpay);
-});
-
-$('#gertudesRadio5').change(function(){
-    if($('#gertudesRadio5').is(':checked')){
-        if(gertudesprevrad == 1)
-            finalpay = finalpay - 1500;
-        else if(gertudesprevrad == 2)
-            finalpay = finalpay - 1500;
-        else if(gertudesprevrad == 3)
-            finalpay = finalpay - 1700;
-        else if(gertudesprevrad == 4)
-            finalpay = finalpay - 2500;
-        finalpay = finalpay + 4500;
-        $('#gertudesprice5').fadeIn('slow');
-        $('#gertudesprice1').hide();
-        $('#gertudesprice2').hide();
-        $('#gertudesprice3').hide();
-        $('#gertudesprice4').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        gertudesprevrad = 5;
-    }
-    else{
-        $('#gertudesprice5').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-    }
-    $("#cat_id").val(finalpay);
-});
-
-// Raphael Radio Buttons
-
-$('#raphaelRadio1').change(function(){
-    if($('#raphaelRadio1').is(':checked')){
-        if(raphaelprevrad == 2)
-            finalpay = finalpay - 1990;
-        else if(raphaelprevrad == 3)
-            finalpay = finalpay - 9990;
-        finalpay = finalpay + 4990;
-        $('#raphaelprice1').fadeIn('slow');
-        $('#raphaelprice2').hide();
-        $('#raphaelprice3').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        raphaelprevrad = 1;
-    }
-    else{
-        $('#raphaelprice1').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-    }
-    $("#cat_id").val(finalpay);
-});
-
-$('#raphaelRadio2').change(function(){
-    if($('#raphaelRadio2').is(':checked')){
-        if(raphaelprevrad == 1)
-            finalpay = finalpay - 4990;
-        else if(raphaelprevrad == 3)
-            finalpay = finalpay - 9990;
-        finalpay = finalpay + 1990;
-        $('#raphaelprice2').fadeIn('slow');
-        $('#raphaelprice1').hide();
-        $('#raphaelprice3').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        raphaelprevrad = 2;
-    }
-    else{
-        $('#raphaelprice2').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-    }
-    $("#cat_id").val(finalpay);
-});
-
-$('#raphaelRadio3').change(function(){
-    if($('#raphaelRadio3').is(':checked')){
-        if(raphaelprevrad == 1)
-            finalpay = finalpay - 4990;
-        else if(raphaelprevrad == 2)
-            finalpay = finalpay - 1990;
-        finalpay = finalpay + 9990;
-        $('#raphaelprice3').fadeIn('slow');
-        $('#raphaelprice1').hide();
-        $('#raphaelprice2').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        raphaelprevrad = 3;
-    }
-    else{
-        $('#raphaelprice3').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-    }
-    $("#cat_id").val(finalpay);
-});
-
-// La Rose Radio Buttons
-
-$('#laroseRadio1').change(function(){
-    if($('#laroseRadio1').is(':checked')){
-        if(laroseprevrad == 2)
-            finalpay = finalpay - 2500;
-        finalpay = finalpay + 7500;
-        $('#laroseprice1').fadeIn('slow');
-        $('#laroseprice2').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        laroseprevrad = 1;
-    }
-    else{
-        $('#laroseprice1').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-    }
-    $("#cat_id").val(finalpay);
-});
-
-$('#laroseRadio2').change(function(){
-    if($('#laroseRadio2').is(':checked')){
-        if(laroseprevrad == 1)
-            finalpay = finalpay - 7500;
-        finalpay = finalpay + 2500;
-        $('#laroseprice2').fadeIn('slow');
-        $('#laroseprice1').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-        laroseprevrad = 2;
-    }
-    else{
-        $('#laroseprice2').hide();
-        $("#totalpay").empty();
-        $( ".totalpay" ).append( "<span><strong>₱" + finalpay + ".00</strong></span>" );
-    }
-    $("#cat_id").val(finalpay);
-});
-
-});
+    $("#totalpay").empty();
+    $( ".totalpay" ).append( "<span><strong>₱" + new_finalpay + ".00</strong></span>" );
+    $("#cat_id").val(new_finalpay);
+}
     </script>
 {%endblock%}

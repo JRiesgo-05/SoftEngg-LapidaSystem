@@ -51,9 +51,7 @@ class User_PlaceForm(forms.ModelForm):
         uid = models.CharField(max_length=50)
         fields = ["uid"]
         widgets = {
-            "uid": forms.TextInput(
-                attrs={"class": "form-control", "required": True}
-            ),
+            "uid": forms.TextInput(attrs={"class": "form-control", "required": True}),
         }
         # def clean_uid(self):
         #   uid = self.cleaned_data.get('uid')
@@ -67,23 +65,15 @@ class User_PlaceForm(forms.ModelForm):
 
 class EventForm(forms.Form):
     first_name = forms.CharField(
-        widget=forms.TextInput(
-            attrs={"class": "form-control", "required": True}
-        ),
+        widget=forms.TextInput(attrs={"class": "form-control", "required": True}),
     )
     middle_name = forms.CharField(
-        widget=forms.TextInput(
-            attrs={"class": "form-control", "required": True}
-        ),
+        widget=forms.TextInput(attrs={"class": "form-control", "required": True}),
     )
     last_name = forms.CharField(
-        widget=forms.TextInput(
-            attrs={"class": "form-control", "required": True}
-        ),
+        widget=forms.TextInput(attrs={"class": "form-control", "required": True}),
     )
-    birth_date = forms.DateField(
-        widget=DatePickerInput(attrs={"required": True})
-    )
+    birth_date = forms.DateField(widget=DatePickerInput(attrs={"required": True}))
 
 
 # widgets = {"birth_date": DatePickerInput(attrs={"required": True})}
@@ -93,11 +83,11 @@ class Order_UserForm(forms.ModelForm):
     class Meta:
         model = Order_User
         fields = ["order_date"]
+        today = datetime.date.today()
+        next_week = today + datetime.timedelta(days=7)
         widgets = {
             "order_date": DatePickerInput(
                 attrs={"required": True},
-                options={
-                    "minDate": (datetime.datetime.today().strftime("%m-%d-%Y"))
-                },
+                options={"minDate": (next_week.strftime("%m-%d-%Y"))},
             )
         }

@@ -6,6 +6,11 @@ from .models import (
     CareTaker,
     Order_User,
     Caretaker_Task,
+    FlowerTaker,
+    FlowerTaker_Task,
+    FlowerShopItems,
+    Prayer,
+    Prayer_Task,
 )
 from import_export.admin import ImportExportModelAdmin
 
@@ -15,6 +20,11 @@ admin.site.register(User_Place)
 admin.site.register(CareTaker)
 admin.site.register(Order_User)
 admin.site.register(Caretaker_Task)
+admin.site.register(FlowerTaker)
+admin.site.register(FlowerShopItems)
+admin.site.register(FlowerTaker_Task)
+admin.site.register(Prayer)
+admin.site.register(Prayer_Task)
 
 
 @admin.register(MasterData_Revised)

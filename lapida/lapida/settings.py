@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     "bootstrap_datepicker_plus",
     "bootstrap4",
     "crispy_forms",
+    "rest_framework",
+    "django_cron",
 ]
 
 MIDDLEWARE = [
@@ -76,6 +78,12 @@ TEMPLATES = [
         },
     },
 ]
+
+CRON_CLASSES = [
+    "lapida_app.cron.MyCronJob",
+    # ...
+]
+
 
 WSGI_APPLICATION = "lapida.wsgi.application"
 AUTHENTICATION_BACKENDS = ["django.contrib.auth.backends.AllowAllUsersModelBackend"]

@@ -1,0 +1,210 @@
+{% extends "lapida_app/base.html" %} {%load static%} {%block content%}
+<head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: aliceblue;
+    }
+
+    .wrapper {
+      padding: 30px 50px;
+      border: 1px solid #ddd;
+      border-radius: 15px;
+      margin: 10px auto;
+      max-width: 600px;
+    }
+
+    h4 {
+      letter-spacing: -1px;
+      font-weight: 400;
+    }
+
+    .img {
+      width: 70px;
+      height: 70px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    #img-section p,
+    #deactivate p {
+      font-size: 12px;
+      color: #777;
+      margin-bottom: 10px;
+      text-align: justify;
+    }
+
+    #img-section b,
+    #img-section button,
+    #deactivate b {
+      font-size: 14px;
+    }
+
+    label {
+      margin-bottom: 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: #777;
+      padding-left: 3px;
+    }
+
+    .form-control {
+      border-radius: 10px;
+    }
+
+    input[placeholder] {
+      font-weight: 500;
+    }
+
+    .form-control:focus {
+      box-shadow: none;
+      border: 1.5px solid #0779e4;
+    }
+
+    select {
+      display: block;
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      height: 40px;
+      padding: 5px 10px;
+    }
+
+    select:focus {
+      outline: none;
+    }
+
+    .button {
+      background-color: #fff;
+      color: #0779e4;
+    }
+
+    .button:hover {
+      background-color: #0779e4;
+      color: #fff;
+    }
+
+    .btn-primary {
+      background-color: #0779e4;
+    }
+
+    .danger {
+      background-color: #fff;
+      color: #e20404;
+      border: 1px solid #ddd;
+    }
+
+    .danger:hover {
+      background-color: #e20404;
+      color: #fff;
+    }
+
+    @media (max-width: 576px) {
+      .wrapper {
+        padding: 25px 20px;
+      }
+
+      #deactivate {
+        line-height: 18px;
+      }
+    }
+
+    .delete {
+        position: relative;
+    }
+    
+    .delete button {
+        position: absolute;
+        right: -110px;
+        top: 5px;
+    }
+  </style>
+</head>
+<div class="wrapper bg-white mt-sm-5">
+  <h4 class="pb-4 border-bottom">Flower configuration</h4>
+  <form method="POST" action="" enctype="multipart/form-data">
+    
+  <div class="d-flex align-items-start py-3 border-bottom">
+    {%if not new_item%}
+    <img src="{{flower_item.image.url}}"class="img" alt="" />
+    {%endif%}
+    <div class="pl-sm-4 pl-2" id="img-section">
+      <b>Flower Photo</b>
+      <br>
+      <label for="formFileSm" class="form-label"
+        >Accepted file type .png & .jpg</label
+      >
+      {%csrf_token%}
+      <input name="image" class="form-control form-control-sm" id="image" type="file" accept="image/* "/>
+    </div>
+  </div>
+  <div class="py-1">
+    <div class="row py-1">
+      <div class="col-md-12">
+        <label>Flower Name</label>
+        <input
+          type="text"
+          class="bg-light form-control"
+          placeholder="Sunflower"
+          required
+          name="flower_name"
+          id="flower_name"
+          value={{flower_item.flower_name}} {% if not new_item%} {%else%} "" {%endif%}
+        />
+      </div>
+    </div>
+    <div class="row py-1">
+      <div class="col-md-12">
+        <label>Flower Description</label>
+        <textarea
+          class="form-control"
+          name="description"
+          id="description"
+          rows="3"
+          required
+        >{{flower_item.description}}{% if not new_item%}{%else%}{%endif%}</textarea>
+      </div>
+      <div class="col-md-6 pt-md-0 pt-3">
+        <label for="phone">Pricing</label>
+        <input
+          type="number"
+          class="bg-light form-control"
+          required
+          name="price"
+          id="price"
+          value={{flower_item.price}} {% if not new_item%} {%else%} ""{%endif%}
+        ></input>
+      </div>
+    </div>
+    </div>
+    <div class="py-3 pb-4 border-bottom">
+      {%if new_item %}
+      <button class="btn btn-primary mr-3" type="submit">Add Flower</button>
+      {% else %}
+      <button class="btn btn-primary mr-3" type="submit">Save Changes</button>
+      {%endif%}
+   
+    <button formaction="{%url "flowershop_items"%}" class="btn border button">Cancel</button>
+    </div>
+  </form>
+    {%if not new_item%}
+    <div class="d-sm-flex align-items-center pt-3" id="deactivate">
+      <div class="delete"> 
+        <b>Delete this Flower</b>
+        <p>By deleting this flower it would not show for the users</p>
+      <div class="ml-auto"><button class="btn danger">Delete</button></div>
+    </div>
+    {%endif%}
+    </div>
+  </div>
+</div>
+
+{%endblock%}
